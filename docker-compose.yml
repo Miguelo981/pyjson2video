@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  app:
+    container_name: video_editor
+    build: .
+    restart: unless-stopped
+    volumes:
+      -  outputs:/usr/src/app/outputs
+      -  editor/log:/log
+volumes:
+  outputs:
+  editor/log:

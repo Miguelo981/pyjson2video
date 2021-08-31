@@ -1,3 +1,6 @@
 FROM python:3.8-alpine
 
-RUN apt install ffmpeg
+WORKDIR /usr/src/app
+RUN pip install -r requirements.txt
+RUN apt-get -y install ffmpeg imagemagick
+COPY . .

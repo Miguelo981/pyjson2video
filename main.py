@@ -1,14 +1,20 @@
 import json, os
 
 from loguru import logger
-from pydub import AudioSegment
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from moviepy.video.VideoClip import ColorClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
+from moviepy.video.compositing.concatenate import concatenate_videoclips
 
-from project.audio.audio_controller import get_audio_duration, import_media, change_volume, overlay_media, export_media
+from project.audio.audio_controller import *
 from project.audio.models.voice_engine import VoiceEngine, EXPORT_DIR
 from project.audio.editor.audio_editor import convert_audio_mp3_file, get_song
-from routes import ROOT_DIR
+from project.video.editor.image_editor import create_text_clip
+from conf import *
 
 logger.add("logs.log", backtrace=True, diagnose=True)
+
+# TODO use path joins to join paths and .format in for endswidth
 
 def convert_song_files():
     with open(ROOT_DIR + r"\inputs\example.json", encoding="utf8") as file:
@@ -57,7 +63,7 @@ def create_audio_files():
 
 def create_complete_audio():
     with open(ROOT_DIR + r"./example.json", encoding="utf8") as file:
-        # try:
+        try:
             data = json.load(file)
             full_audio_duration = 0
 
@@ -79,9 +85,43 @@ def create_complete_audio():
 
             logger.info("Final audio updated!", final_audio_route)
             file.close()
+        except Exception as error:
+            logger.error(error)
+
+# TODO change routes to config and save there the default project configuration
+
+def create_comlete_video():
+    with open(ROOT_DIR + r"./example.json", encoding="utf8") as file:
+        # try:
+            data = json.load(file)
+            final_video_route = EXPORT_DIR + '\\' + 'complete_video.mp4'
+
+            background_clip = ColorClip(color='white', size=(1280, 1920))
+            background_clip.set_fps(30)
+            full_audio_duration = 0
+
+            for audio in data['phrases']:
+                full_audio_duration += audio['audio']['duration']
+                txt_clip = create_text_clip(audio['text'], 20)
+
+                overlay_clip = CompositeVideoClip([background_clip, txt_clip], size=txt_clip.size)
+                overlay_clip = overlay_clip.set_duration(audio['audio']['duration'] / 1000)
+                overlay_clip = overlay_clip.set_fps(30)
+                overlay_clip = overlay_clip.set_audio(None)
+                background_clip = concatenate_videoclips([background_clip, overlay_clip])
+
+            #background_clip.set_duration(full_audio_duration)
+            background_audio_clip = AudioFileClip(EXPORT_DIR + '\\' + 'complete_audio.' + data['audio_format'])
+            music = background_audio_clip.subclip(0, full_audio_duration)
+            full_video = background_clip.set_audio(music)
+
+            full_video.write_videofile(final_video_route, codec='libx264', audio_codec="aac")
+            logger.info("Final video updated!", final_video_route)
+            file.close()
         # except Exception as error:
         #     logger.error(error)
 
 #convert_song_files()
 #create_audio_files()
-create_complete_audio()
+#create_complete_audio()
+create_comlete_video()
