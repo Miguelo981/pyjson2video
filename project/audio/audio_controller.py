@@ -12,11 +12,11 @@ def overlay_media(media1, media2):
 def import_media(file_route, format = "wav"):
     return AudioSegment.from_file(file_route, format=format)
 
-def export_media(media, file_name, format = "wav"):
+def export_media(media, file_name, format="wav"):
     media.export(file_name, format=format)
 
 def get_audio_duration(audio_route):
-    f = open(audio_route, encoding = 'cp850')
+    f = open(audio_route, encoding='cp850')
 
     f.seek(28)
     a = f.read(4)

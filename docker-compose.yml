@@ -3,10 +3,16 @@ services:
   app:
     container_name: video_editor
     build: .
-    restart: unless-stopped
+    tty: true
     volumes:
       -  outputs:/usr/src/app/outputs
-      -  editor/log:/log
+      -  inputs:/usr/src/app//inputs
+      -  editorlogs:/logs.log
+      -  audios:/usr/src/app/project/audio/exports
+      -  videos:/usr/src/app/project/video/exports
 volumes:
   outputs:
-  editor/log:
+  editorlogs:
+  audios:
+  videos:
+  inputs:

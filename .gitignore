@@ -4,5 +4,5 @@
 /project/exports/*
 /example.json
 /inputs/*
-/logs.log
+/logs/logs.log
 /venv/

@@ -18,6 +18,4 @@ def get_song(songs, total_duration):
         if song_duration >= total_duration:
             return song
 
-
-
         # TODO join more than one music if not found
