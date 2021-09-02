@@ -110,23 +110,7 @@ def create_complete_video():
             logger.error(error)
 
 convert_song_files()
-create_audio_files()
-create_complete_video()
 
-# import moviepy.editor as mpe
-#
-# video = ColorClip(color=(255, 255, 255), size=(1920, 1080))\
-#                 .set_duration(15)\
-#                 .set_fps(30)\
-#                 .set_audio(None)
-# vtuber_clip = VideoFileClip(os.path.join(ASSETS_PATH, 'videos/test1.mp4'))
-# masked_clip = vtuber_clip.fx(mpe.vfx.mask_color, color=[0,214,11], thr=100, s=5)\
-#     .set_pos(('right', 'bottom'))\
-#     .fx(mpe.vfx.loop, n=3)\
-#     .fx(mpe.vfx.speedx, 4)\
-#     .set_duration(13)
-# final_clip = CompositeVideoClip([
-#     video,
-#     masked_clip
-# ]).set_duration(vtuber_clip.duration)
-# final_clip.write_videofile('test1.mp4')
+create_audio_files()
+
+create_complete_video()
