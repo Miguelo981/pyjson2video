@@ -1,0 +1,12 @@
+#FROM jonathangoorin/moviepy:latest
+FROM ib5k/moviepy:latest
+
+WORKDIR /usr/src/app
+#RUN apt-get update && apt-get install -y ffmpeg imagemagick
+RUN apt-get update && apt-get install -y espeak-ng-espeak libespeak-ng-libespeak1
+#espeak speech-dispatcher-espeak open-jtalk
+COPY . .
+RUN mkdir /usr/share/fonts/custom
+COPY ./assets/fonts /usr/share/fonts/custom
+RUN fc-cache -v /usr/share/fonts
+RUN pip install -r requirements.txt

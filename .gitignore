@@ -4,5 +4,7 @@
 /project/exports/*
 /example.json
 /inputs/*
+/outputs/*
 /logs/logs.log
 /venv/
+.env

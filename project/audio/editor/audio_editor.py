@@ -1,8 +1,7 @@
 import random
 
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 from pydub import AudioSegment
-
-from project.audio.audio_controller import get_audio_duration
 
 
 def convert_audio_mp3_file(media_file, format="wav"):
@@ -13,7 +12,7 @@ def get_song(songs, total_duration):
     random.shuffle(songs)
 
     for song in songs:
-        song_duration = get_audio_duration(song['route'])
+        song_duration = AudioFileClip(song['route']).duration
 
         if song_duration >= total_duration:
             return song
