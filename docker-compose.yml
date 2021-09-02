@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  app:
+    container_name: video_editor
+    build: .
+    tty: true
+    volumes:
+      -  outputs:/usr/src/app/outputs
+      -  inputs:/usr/src/app//inputs
+      -  editorlogs:/logs.log
+      -  audios:/usr/src/app/project/audio/exports
+      -  videos:/usr/src/app/project/video/exports
+volumes:
+  outputs:
+  editorlogs:
+  audios:
+  videos:
+  inputs:
