@@ -44,10 +44,6 @@ class WattsonEngine(VoiceEngine):
             logger.warning("Selected audio language is not installed in the OS!")
             self.voice = WattsonVoice(**list[0])
 
-    # def say(self, text):
-    #     self.engine.say(text)
-    #     self.engine.runAndWait()
-
     def save(self, text, route, format="wav"):
         with open(route, 'wb') as audio_file:
             audio_file.write(self.tts.synthesize(text, voice=self.voice.name, accept='audio/mp3').get_result().content)

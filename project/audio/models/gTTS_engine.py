@@ -8,9 +8,6 @@ class gTTSEngine(VoiceEngine):
     def __init__(self, rate=140, lang="en", gender="male"):
         VoiceEngine.__init__(self, rate, lang, gender)
 
-    # def say(self, text):
-    #     tts = gTTS(text=text, lang=self.lang)
-
     def save(self, text, route):
         tts = gTTS(text=text, lang=self.lang)
         tts.save(route)

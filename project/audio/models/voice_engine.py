@@ -7,7 +7,6 @@ from project.audio.editor.audio_editor import convert_audio_mp3_file
 
 class VoiceEngine:
     def __init__(self, rate = 140, lang="en"):
-        # self.engine = pyttsx3.init(voice_driver_by_os())
         self.engine = pyttsx3.init()
         self.voice = None
         self.rate = rate

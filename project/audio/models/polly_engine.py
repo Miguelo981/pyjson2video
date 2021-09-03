@@ -42,10 +42,6 @@ class PollyEngine(VoiceEngine):
             logger.warning("Selected audio language is not installed in the OS!")
             self.voice = PollyVoice(**list[0])
 
-    # def say(self, text):
-    #     self.engine.say(text)
-    #     self.engine.runAndWait()
-
     def save(self, text, route):
         response = self.client.synthesize_speech(VoiceId=self.voice.id,
                                                   OutputFormat='mp3',
